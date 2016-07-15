@@ -1,2 +1,4 @@
+require 'active_support/concern'
 require 'panoramic/resolver'
-require 'panoramic/orm/active_record'
+require 'panoramic/orm/active_record' if defined?(ActiveRecord)
+require 'panoramic/orm/mongoid' if defined?(Mongoid)
