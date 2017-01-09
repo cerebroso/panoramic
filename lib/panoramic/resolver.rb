@@ -16,6 +16,7 @@ module Panoramic
       }
 
       @model.find_model_templates(conditions).map do |record|
+        clear_cache if @resolver_options[:clear_cache]
         initialize_template(record)
       end
     end
