@@ -16,9 +16,18 @@ module Panoramic
       }
 
       @model.find_model_templates(conditions).map do |record|
-        clear_cache if @resolver_options[:clear_cache]
         initialize_template(record)
       end
+    end
+
+    def find_all(name, prefix=nil, partial=false, details={}, key=nil, locals=[])
+      cached(key, [name, custom_cache_prefix, prefix, partial].compact, details, locals) do
+        find_templates(name, prefix, partial, details)
+      end
+    end
+
+    def custom_cache_prefix
+      @model.try(:custom_prefix)
     end
 
     # Instantiate Resolver by passing a model (decoupled from ORMs)
