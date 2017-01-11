@@ -20,7 +20,7 @@ module Panoramic
           self.where(conditions)
         end
 
-        def resolver(options={})
+        def resolver(options={cache: true})
           Panoramic::Resolver.using self, options
         end
       end

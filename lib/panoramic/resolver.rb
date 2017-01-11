@@ -21,7 +21,11 @@ module Panoramic
     end
 
     def find_all(name, prefix=nil, partial=false, details={}, key=nil, locals=[])
-      cached(key, [name, custom_cache_prefix, prefix, partial].compact, details, locals) do
+      if @resolver_options[:cache]
+        cached(key, [name, custom_cache_prefix, prefix, partial].compact, details, locals) do
+          find_templates(name, prefix, partial, details)
+        end
+      else
         find_templates(name, prefix, partial, details)
       end
     end
